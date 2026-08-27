@@ -1,0 +1,22 @@
+<!doctype html><html lang="zh-Hant"><meta charset="utf-8"><title>初始化景點資料</title><body><p id="status">正在建立景點資料…</p><script type="module">
+import{initializeApp}from"https://www.gstatic.com/firebasejs/12.3.0/firebase-app.js";import{getFirestore,doc,setDoc}from"https://www.gstatic.com/firebasejs/12.3.0/firebase-firestore.js";
+const config={apiKey:"AIzaSyA2tJsoKnX5RYEtF9es19XaZyZ-JgF2i0A",authDomain:"hokkaido--japan.firebaseapp.com",projectId:"hokkaido--japan",storageBucket:"hokkaido--japan.firebasestorage.app",messagingSenderId:"540830636468",appId:"1:540830636468:web:4ea022f410aac61a13fae1"};
+const rows=[
+["goryokaku","spring",1,"五稜郭公園","函館","從五稜郭塔俯瞰，粉紅花海沿著星形護城河展開，是北海道最具代表性的賞櫻景色。傍晚還能順遊函館山夜景。"],
+["matsumae","spring",2,"松前公園","松前町","松前城、古寺與品種豐富的櫻花交織，花期相對較長，適合喜歡歷史氛圍與悠閒散步的旅人。"],
+["higashimokoto","spring",3,"東藻琴芝櫻公園","大空町","5 月至 6 月，山坡化為粉紅與白色的巨幅花毯。可搭配網走、知床或屈斜路湖規劃道東之旅。"],
+["farm-tomita","summer",1,"富田農場","富良野","7 月的紫色薰衣草田最為迷人，園內還有多彩花田、香氛商品與薰衣草冰淇淋，適合停留半天。"],
+["shikisai","summer",2,"四季彩之丘","美瑛","丘陵花田排列成鮮豔彩帶，視野遼闊。可與白金青池、拼布之路及白鬚瀑布排成一日遊。"],
+["kamui","summer",3,"神威岬","積丹半島","沿海岸步道走向岬角，欣賞清澈的「積丹藍」。夏季也是品嘗海膽的熱門時節，記得準備防風薄外套。"],
+["shiretoko","summer",4,"知床五湖","知床半島","原始森林、靜謐湖泊與知床連山共同構成壯麗景色。可走高架木道，或參加嚮導帶領的地面步道行程。"],
+["daisetsuzan","autumn",1,"大雪山國立公園","旭岳・黑岳","日本最早迎接紅葉的地區之一。搭乘纜車即可俯瞰大片紅葉，也能選擇合適的步道深入山林。"],
+["hoheikyo","autumn",2,"豐平峽","札幌近郊","水庫、峽谷與秋色相映，是札幌近郊的賞楓名所。可與定山溪溫泉同日安排，白天賞景、晚上泡湯。"],
+["notoro","autumn",3,"能取湖珊瑚草群落","網走","9 月前後湖畔染成鮮紅，形成少見的紅色濕地景觀，適合搭配網走監獄博物館與流冰館順遊。"],
+["blue-pond","autumn",4,"青池與白鬚瀑布","美瑛","黃、橘、紅的秋林倒映在獨特藍色水面上，色彩格外鮮明。山區早晚溫差大，請攜帶保暖外套。"],
+["snow-festival","winter",1,"札幌雪祭","札幌","2 月的大通公園展出大型雪雕與冰雕，夜間點燈更具氣氛。旺季住宿與交通建議提早預訂。"],
+["otaru","winter",2,"小樽運河","小樽","白雪覆蓋石造倉庫與煤油路燈。遇上「小樽雪燈之路」，運河與街道點起燭光，氣氛格外浪漫。"],
+["drift-ice","winter",3,"流冰觀光破冰船","網走","搭船近距離感受鄂霍次克海流冰的震撼。流冰受天候影響，出發前請確認船班與當日海況。"],
+["asahiyama","winter",4,"旭山動物園","旭川","冬季人氣活動「企鵝散步」可近距離觀察企鵝踏雪，北極熊、海豹等寒帶動物也更加活躍。"],
+["niseko","winter",5,"二世谷","新雪谷","以乾爽粉雪聞名，是滑雪與單板滑雪勝地，也能體驗溫泉與雪鞋健行。旺季務必提前訂房。"]];
+try{const db=getFirestore(initializeApp(config));await Promise.all(rows.map(([id,season,order,name,location,description])=>setDoc(doc(db,"attractions",id),{season,order,name,location,description,published:true})));document.querySelector('#status').textContent=`已完成：${rows.length} 筆景點資料。`;}catch(e){document.querySelector('#status').textContent=`建立失敗：${e.message}`;}
+</script></body></html>
